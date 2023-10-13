@@ -1,0 +1,128 @@
+[gd_scene load_steps=8 format=3 uid="uid://d4au02egdin0x"]
+
+[ext_resource type="Script" path="res://Scenes/Machinary/Workable_Item/workable_itemSCRIPT.gd" id="1_o15oj"]
+[ext_resource type="Texture2D" uid="uid://e8t21f58ihwj" path="res://Assets/potion_sprite_sheet.png" id="2_6py6f"]
+[ext_resource type="PackedScene" uid="uid://dxaqxvtncoai1" path="res://Components/Machine_Area_Component/machine_area_component.tscn" id="3_vgp55"]
+[ext_resource type="PackedScene" uid="uid://563irxnq5caf" path="res://Components/Rotate_Component/Rotate_Component.tscn" id="4_xhuxu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1hga5"]
+bg_color = Color(0.317647, 0.133333, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ilpj"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2l5yw"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="workable_item" type="Node2D" node_paths=PackedStringArray("rotate_component")]
+script = ExtResource("1_o15oj")
+rotate_component = NodePath("Rotate_Component")
+
+[node name="Conveyor_base" type="Panel" parent="."]
+offset_right = 32.0
+offset_bottom = 32.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1hga5")
+
+[node name="Direction" type="Panel" parent="Conveyor_base"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 11.0
+offset_right = 26.0
+offset_bottom = 12.0
+rotation = 1.5708
+theme_override_styles/panel = SubResource("StyleBoxFlat_5ilpj")
+
+[node name="Direction2" type="Panel" parent="Conveyor_base"]
+visible = false
+layout_mode = 0
+offset_left = 13.0
+offset_top = 23.0
+offset_right = 22.0
+offset_bottom = 24.0
+rotation = 1.57167
+theme_override_styles/panel = SubResource("StyleBoxFlat_2l5yw")
+
+[node name="Direction3" type="Panel" parent="Conveyor_base"]
+visible = false
+layout_mode = 0
+offset_left = 21.0
+offset_top = 23.0
+offset_right = 30.0
+offset_bottom = 24.0
+rotation = 1.57167
+theme_override_styles/panel = SubResource("StyleBoxFlat_2l5yw")
+
+[node name="Direction4" type="Panel" parent="Conveyor_base"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 21.0
+offset_right = 30.0
+offset_bottom = 22.0
+rotation = 3.14159
+theme_override_styles/panel = SubResource("StyleBoxFlat_2l5yw")
+
+[node name="Direction5" type="Panel" parent="Conveyor_base"]
+visible = false
+layout_mode = 0
+offset_left = 21.0
+offset_top = 32.0
+offset_right = 30.0
+offset_bottom = 33.0
+rotation = 3.14159
+theme_override_styles/panel = SubResource("StyleBoxFlat_2l5yw")
+
+[node name="FromA" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(18, 5)
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("2_6py6f")
+hframes = 6
+vframes = 5
+frame = 1
+
+[node name="FromB" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(14, 6)
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("2_6py6f")
+hframes = 6
+vframes = 5
+frame = 1
+
+[node name="To" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(16, 26)
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("2_6py6f")
+hframes = 6
+vframes = 5
+frame = 1
+
+[node name="machine_area_component" parent="." node_paths=PackedStringArray("parent_component") instance=ExtResource("3_vgp55")]
+collision_layer = 256
+collision_mask = 0
+parent_component = NodePath("..")
+
+[node name="CollisionShape2D" parent="machine_area_component" index="0"]
+position = Vector2(18, 10)
+
+[node name="Rotate_Component" parent="." node_paths=PackedStringArray("paret_component") instance=ExtResource("4_xhuxu")]
+paret_component = NodePath("..")
+
+[node name="TimerManager" type="Node" parent="."]
+
+[node name="Findout_Delay" type="Timer" parent="TimerManager"]
+wait_time = 0.5
+autostart = true
+
+[node name="Work_Delay" type="Timer" parent="TimerManager"]
+wait_time = 3.0
+one_shot = true
+
+[node name="PositionOutput" type="Marker2D" parent="."]
+position = Vector2(16, 48)
+
+[connection signal="timeout" from="TimerManager/Findout_Delay" to="." method="_on_findout_delay_timeout"]
+[connection signal="timeout" from="TimerManager/Work_Delay" to="." method="_on_work_delay_timeout"]
+
+[editable path="machine_area_component"]

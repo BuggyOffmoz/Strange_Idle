@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bkse02gmupnlp"]
+
+[ext_resource type="Script" path="res://Components/Item_Component/item_componentSCRIPT.gd" id="1_u3tir"]
+[ext_resource type="Texture2D" uid="uid://e8t21f58ihwj" path="res://Assets/potion_sprite_sheet.png" id="2_3o0wp"]
+[ext_resource type="PackedScene" uid="uid://cjyoxno5pfdp0" path="res://Components/Item_Area_Component/item_area_component.tscn" id="3_shu3e"]
+
+[node name="Base_Spawn_Item" type="Node2D"]
+z_index = 5
+z_as_relative = false
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_u3tir")
+
+[node name="ItemSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -10)
+texture = ExtResource("2_3o0wp")
+hframes = 6
+vframes = 5
+frame = 3
+
+[node name="item_area_component" parent="." node_paths=PackedStringArray("parent_item_component") instance=ExtResource("3_shu3e")]
+parent_item_component = NodePath("..")

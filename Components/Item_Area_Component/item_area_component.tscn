@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjyoxno5pfdp0"]
+
+[ext_resource type="Script" path="res://Components/Item_Area_Component/item_area_componentSCRIPT.gd" id="1_r01jq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7eh65"]
+size = Vector2(2, 2)
+
+[node name="item_area_component" type="Area2D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_r01jq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7eh65")

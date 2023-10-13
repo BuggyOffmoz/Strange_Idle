@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ba527qh5rufcj"]
+
+[ext_resource type="Script" path="res://Components/Item_Component/item_componentSCRIPT.gd" id="1_m1kbs"]
+[ext_resource type="Texture2D" uid="uid://e8t21f58ihwj" path="res://Assets/potion_sprite_sheet.png" id="2_oyqhv"]
+[ext_resource type="PackedScene" uid="uid://cjyoxno5pfdp0" path="res://Components/Item_Area_Component/item_area_component.tscn" id="3_8nx51"]
+
+[node name="Red_Potion_Bottle" type="Node2D"]
+script = ExtResource("1_m1kbs")
+item_id = 1
+
+[node name="ItemSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -10)
+texture = ExtResource("2_oyqhv")
+hframes = 6
+vframes = 5
+frame = 3
+
+[node name="item_area_component" parent="." instance=ExtResource("3_8nx51")]

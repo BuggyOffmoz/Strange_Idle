@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://dg4c0wwway2tw"]
+
+[ext_resource type="Script" path="res://Scenes/Machinary/Spawner_Item/Spawner_ItemSCRIPT.gd" id="1_21pjs"]
+[ext_resource type="PackedScene" uid="uid://563irxnq5caf" path="res://Components/Rotate_Component/Rotate_Component.tscn" id="2_bupcp"]
+[ext_resource type="Texture2D" uid="uid://e8t21f58ihwj" path="res://Assets/potion_sprite_sheet.png" id="3_uhdvm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w70wc"]
+bg_color = Color(0.266667, 0.266667, 0.266667, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_color = Color(0.160784, 0.160784, 0.160784, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p0s8m"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_krl8l"]
+bg_color = Color(1, 1, 1, 0.117647)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_56pr7"]
+size = Vector2(8, 11)
+
+[node name="Spawner_Item" type="Node2D" node_paths=PackedStringArray("rotate_component") groups=["spawner_group"]]
+script = ExtResource("1_21pjs")
+rotate_component = NodePath("Rotate_Component")
+
+[node name="Base" type="Panel" parent="."]
+offset_right = 32.0
+offset_bottom = 32.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_w70wc")
+
+[node name="Output" type="Panel" parent="Base"]
+layout_mode = 0
+offset_top = 22.0
+offset_right = 32.0
+offset_bottom = 32.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_p0s8m")
+
+[node name="FocusPanel" type="Panel" parent="Base"]
+visible = false
+layout_mode = 0
+offset_left = 11.0
+offset_top = 5.0
+offset_right = 21.0
+offset_bottom = 16.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_krl8l")
+
+[node name="PositionOutput" type="Marker2D" parent="."]
+position = Vector2(16, 48)
+
+[node name="Delay" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[node name="Rotate_Component" parent="." node_paths=PackedStringArray("paret_component") instance=ExtResource("2_bupcp")]
+rotation = -0.19743
+paret_component = NodePath("..")
+
+[node name="ItemSelect" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(16, 10)
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("3_uhdvm")
+hframes = 6
+vframes = 5
+frame = 1
+
+[node name="MouseClickDetect" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseClickDetect"]
+position = Vector2(16, 10.5)
+shape = SubResource("RectangleShape2D_56pr7")
+
+[connection signal="timeout" from="Delay" to="." method="_on_delay_timeout"]
+[connection signal="mouse_entered" from="MouseClickDetect" to="." method="_on_mouse_click_detect_mouse_entered"]
+[connection signal="mouse_exited" from="MouseClickDetect" to="." method="_on_mouse_click_detect_mouse_exited"]
