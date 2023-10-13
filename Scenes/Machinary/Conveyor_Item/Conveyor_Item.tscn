@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://5ibiie58wall"]
+
+[ext_resource type="Script" path="res://Scenes/Machinary/Conveyor_Item/Conveyor_ItemSCRIPT.gd" id="1_yht11"]
+[ext_resource type="PackedScene" uid="uid://563irxnq5caf" path="res://Components/Rotate_Component/Rotate_Component.tscn" id="2_rw2qo"]
+[ext_resource type="PackedScene" uid="uid://dxaqxvtncoai1" path="res://Components/Machine_Area_Component/machine_area_component.tscn" id="3_ftxv6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gpusb"]
+bg_color = Color(0.866667, 0.494118, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uaoch"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4oe08"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ayqle"]
+size = Vector2(2, 1.5)
+
+[node name="Conveyor_Item" type="Node2D" node_paths=PackedStringArray("rotate_component")]
+script = ExtResource("1_yht11")
+rotate_component = NodePath("Rotate_Component")
+
+[node name="Conveyor_base" type="Panel" parent="."]
+offset_right = 32.0
+offset_bottom = 32.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gpusb")
+
+[node name="Direction" type="Panel" parent="Conveyor_base"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 30.0
+offset_right = 21.0
+offset_bottom = 32.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_uaoch")
+
+[node name="Direction2" type="Panel" parent="Conveyor_base"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 21.0
+offset_right = 26.0
+offset_bottom = 22.0
+rotation = 1.57167
+theme_override_styles/panel = SubResource("StyleBoxFlat_4oe08")
+
+[node name="Item_Detect" type="Area2D" parent="."]
+position = Vector2(16, 16)
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Item_Detect"]
+shape = SubResource("RectangleShape2D_ayqle")
+
+[node name="Rotate_Component" parent="." node_paths=PackedStringArray("paret_component") instance=ExtResource("2_rw2qo")]
+paret_component = NodePath("..")
+
+[node name="machine_area_component" parent="." node_paths=PackedStringArray("parent_component") instance=ExtResource("3_ftxv6")]
+parent_component = NodePath("..")
+
+[node name="CollisionShape2D" parent="machine_area_component" index="0"]
+position = Vector2(16, 16)
+
+[connection signal="area_entered" from="Item_Detect" to="." method="_on_item_detect_area_entered"]
+
+[editable path="machine_area_component"]

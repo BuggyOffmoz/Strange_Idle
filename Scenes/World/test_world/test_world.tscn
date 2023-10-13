@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=3 uid="uid://cpf1gdpcrnixc"]
+
+[ext_resource type="Script" path="res://Scenes/World/test_world/WorldTileMapSCRIPT.gd" id="1_dy0vr"]
+[ext_resource type="Script" path="res://Scenes/World/test_world/test_worldSCRIPT.gd" id="1_f6jeq"]
+[ext_resource type="Script" path="res://Scenes/World/test_world/Machinary_ManagerSCRIPT.gd" id="2_pubst"]
+
+[sub_resource type="TileSet" id="TileSet_jego5"]
+tile_size = Vector2i(32, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2i4xe"]
+bg_color = Color(1, 1, 1, 1)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[node name="test_world" type="Node2D" node_paths=PackedStringArray("tile_world", "tile_reference")]
+script = ExtResource("1_f6jeq")
+tile_world = NodePath("WorldTileMap")
+tile_reference = NodePath("ConstructReferencePanel")
+
+[node name="Bg" type="ColorRect" parent="."]
+z_as_relative = false
+offset_right = 1287.0
+offset_bottom = 726.0
+color = Color(0.337255, 0.592157, 0.337255, 1)
+
+[node name="Machinary_Manager" type="Node2D" parent="."]
+script = ExtResource("2_pubst")
+
+[node name="WorldTileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_jego5")
+cell_quadrant_size = 32
+format = 2
+script = ExtResource("1_dy0vr")
+
+[node name="ConstructReferencePanel" type="Panel" parent="."]
+offset_right = 32.0
+offset_bottom = 32.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2i4xe")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Node2D" type="Node2D" parent="CanvasLayer"]
+position = Vector2(1227, 39)
+
+[node name="Panel2" type="Panel" parent="CanvasLayer/Node2D"]
+offset_left = -2.52933
+offset_top = -21.0
+offset_right = 2.47067
+offset_bottom = 19.0
+rotation = -0.532392
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Node2D"]
+offset_left = -0.529327
+offset_top = -25.0
+offset_right = 4.47067
+offset_bottom = 15.0
+rotation = 0.53724
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(160, 91)
+zoom = Vector2(4, 4)

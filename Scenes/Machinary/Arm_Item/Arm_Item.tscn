@@ -1,0 +1,97 @@
+[gd_scene load_steps=8 format=3 uid="uid://bkcqh61sm4msj"]
+
+[ext_resource type="Script" path="res://Scenes/Machinary/Arm_Item/Arm_ItemSCRIPT.gd" id="1_5uibi"]
+[ext_resource type="PackedScene" uid="uid://c3hl6djb3ul0p" path="res://Components/Detect_Item_Component/Detect_Item_Component.tscn" id="1_ti254"]
+[ext_resource type="PackedScene" uid="uid://563irxnq5caf" path="res://Components/Rotate_Component/Rotate_Component.tscn" id="3_tbw2t"]
+[ext_resource type="PackedScene" uid="uid://qld685qj4gll" path="res://Components/Detect_Area_Machine_Component/detect_area_machine_component.tscn" id="4_sc84h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ebre1"]
+bg_color = Color(0, 0.72549, 0.235294, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ur3ep"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gpw53"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="Arm_Item" type="Node2D" node_paths=PackedStringArray("area_component", "rotate_component", "machine_detect_component")]
+script = ExtResource("1_5uibi")
+area_component = NodePath("Detect_Item_Component")
+rotate_component = NodePath("Rotate_Component")
+machine_detect_component = NodePath("detect_area_machine_component")
+
+[node name="Conveyor_base" type="Panel" parent="."]
+offset_right = 32.0
+offset_bottom = 32.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ebre1")
+
+[node name="Direction" type="Panel" parent="Conveyor_base"]
+layout_mode = 0
+offset_left = 17.0
+offset_right = 26.0
+offset_bottom = 1.0
+rotation = 1.5708
+theme_override_styles/panel = SubResource("StyleBoxFlat_ur3ep")
+
+[node name="Direction2" type="Panel" parent="Conveyor_base"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 23.0
+offset_right = 22.0
+offset_bottom = 24.0
+rotation = 1.57167
+theme_override_styles/panel = SubResource("StyleBoxFlat_gpw53")
+
+[node name="Direction3" type="Panel" parent="Conveyor_base"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 23.0
+offset_right = 30.0
+offset_bottom = 24.0
+rotation = 1.57167
+theme_override_styles/panel = SubResource("StyleBoxFlat_gpw53")
+
+[node name="Direction4" type="Panel" parent="Conveyor_base"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 24.0
+offset_right = 30.0
+offset_bottom = 25.0
+rotation = 3.14159
+theme_override_styles/panel = SubResource("StyleBoxFlat_gpw53")
+
+[node name="Direction5" type="Panel" parent="Conveyor_base"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 2.0
+offset_right = 15.0
+offset_bottom = 4.0
+rotation = 3.14159
+theme_override_styles/panel = SubResource("StyleBoxFlat_gpw53")
+
+[node name="Detect_Item_Component" parent="." node_paths=PackedStringArray("Parent_Machine") instance=ExtResource("1_ti254")]
+position = Vector2(12, 34)
+Parent_Machine = NodePath("..")
+
+[node name="CollisionShape2D" parent="Detect_Item_Component" index="0"]
+position = Vector2(5, 14)
+rotation = 1.5708
+
+[node name="DropPosition" type="Marker2D" parent="."]
+position = Vector2(16, -16)
+
+[node name="Rotate_Component" parent="." node_paths=PackedStringArray("paret_component") instance=ExtResource("3_tbw2t")]
+paret_component = NodePath("..")
+
+[node name="Delay" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="detect_area_machine_component" parent="." node_paths=PackedStringArray("parent_component") instance=ExtResource("4_sc84h")]
+position = Vector2(16, -16)
+parent_component = NodePath("..")
+
+[connection signal="timeout" from="Delay" to="." method="_on_delay_timeout"]
+
+[editable path="Detect_Item_Component"]
+[editable path="detect_area_machine_component"]
