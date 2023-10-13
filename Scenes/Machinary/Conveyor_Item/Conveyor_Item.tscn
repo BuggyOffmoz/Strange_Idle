@@ -14,7 +14,7 @@ bg_color = Color(1, 1, 1, 1)
 bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ayqle"]
-size = Vector2(2, 1.5)
+size = Vector2(1, 1)
 
 [node name="Conveyor_Item" type="Node2D" node_paths=PackedStringArray("rotate_component")]
 script = ExtResource("1_yht11")
@@ -54,9 +54,11 @@ shape = SubResource("RectangleShape2D_ayqle")
 paret_component = NodePath("..")
 
 [node name="machine_area_component" parent="." node_paths=PackedStringArray("parent_component") instance=ExtResource("3_ftxv6")]
+position = Vector2(0, 0)
 parent_component = NodePath("..")
 
 [node name="CollisionShape2D" parent="machine_area_component" index="0"]
+visible = false
 position = Vector2(16, 16)
 
 [connection signal="area_entered" from="Item_Detect" to="." method="_on_item_detect_area_entered"]

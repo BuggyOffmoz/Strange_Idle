@@ -30,7 +30,6 @@ func spawn_item():
 
 
 func change_item():
-	print("try")
 	if id_item_generate == 1 or id_item_generate == 0 and im_focus == true:
 		id_item_generate = 2
 		$ItemSelect.frame = 16
